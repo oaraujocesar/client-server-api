@@ -1,6 +1,9 @@
 package database
 
-import "database/sql"
+import (
+	"database/sql"
+	"log"
+)
 
 var DB *sql.DB
 
@@ -11,4 +14,15 @@ func Connect() {
 	}
 
 	DB = db
+
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS quotes (
+			id INTEGER PRIMARY KEY,
+            bid REAL
+		)
+	`)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 }

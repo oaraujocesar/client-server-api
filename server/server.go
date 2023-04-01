@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -13,17 +12,6 @@ import (
 func main() {
 	database.Connect()
 	defer database.DB.Close()
-
-	_, err := database.DB.Exec(`
-		CREATE TABLE IF NOT EXISTS quotes (
-			id INTEGER PRIMARY KEY,
-            bid REAL
-		)
-	`)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
 
 	http.HandleFunc("/cotacao", controllers.GetCurrenyHandler)
 
