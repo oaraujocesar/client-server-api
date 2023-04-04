@@ -13,7 +13,6 @@ func GetCurrenyHandler(w http.ResponseWriter, r *http.Request) {
 	quote, err := utils.GetDollarQuote(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusRequestTimeout)
-		log.Fatal(err)
 		w.Write([]byte("Request Timeout"))
 	}
 
@@ -24,7 +23,6 @@ func GetCurrenyHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = database.InsertQuote(r.Context(), database.DB, quote)
 	if err != nil {
-		log.Fatal(err)
 		w.Write([]byte("Insertion Timeout"))
 	}
 
